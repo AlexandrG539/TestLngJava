@@ -7,7 +7,7 @@ import java.util.regex.Pattern;
 
 public class StringSorter {
     // Формат входных данных строго задан, удобно использовать регулярные выражения
-    static Pattern pattern = Pattern.compile("^(\"([^\"]*)?\";)*\"([^\"]*)?\"$");
+    private final static Pattern pattern = Pattern.compile("^(\"([^\"]*)?\";)*\"([^\"]*)?\"$");
 
     public static void main(String[] args) {
         try {
@@ -20,7 +20,7 @@ public class StringSorter {
                 if (sc.hasNextLine()) { // Пока есть следующа строка
                     String line = sc.nextLine(); // Чтение строки
                     Matcher matcher = pattern.matcher(line);
-                    if (matcher.matches()) { // Если совпадает с указаным шаблоном.
+                    if (matcher.matches()) { // Если строка совпадает с указаным шаблоном
                         //TODO: Строку необходимо проверить на соответствие группам,
                         // поместить в нужное хранилище
                     }
