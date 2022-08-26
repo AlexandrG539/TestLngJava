@@ -10,4 +10,12 @@ public class GroupLink {
     public void setGroup(Group group) {this.group = group;}
 
     public Group getGroup() {return group;}
+
+    //Если 2 объекта ссылаются на один и тот же Group, то они равны (необходимо для исключения дубликатов).
+    public boolean equals(Object other) {
+        if (!(other instanceof GroupLink))
+            return false;
+        else
+            return (((GroupLink) other).group == this.group);
+    }
 }

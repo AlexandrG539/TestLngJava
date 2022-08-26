@@ -1,37 +1,17 @@
-import java.io.IOException;
-import java.nio.file.NoSuchFileException;
-import java.nio.file.Paths;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.LinkedList;
 
+
+//Класс занимается обработкой входящих строк, формированием критериев принадлежности к группе,
+//распределением строк по хранилищам.
 public class StringSorter {
-    // Формат входных данных строго задан, удобно использовать регулярные выражения
-    private final static Pattern pattern = Pattern.compile("^(\"([^\"]*)?\";)*\"([^\"]*)?\"$");
-
-    public static void main(String[] args) {
-        try {
-            if (args.length == 0) { // Имя файла не указано в аргументе
-                System.out.println("Отсутствует имя файла");
-                return;
-            }
-            Scanner sc = new Scanner(Paths.get(args[0])); // Сканер для чтения данных из файла
-            while (true) {
-                if (sc.hasNextLine()) { // Пока есть следующа строка
-                    String line = sc.nextLine(); // Чтение строки
-                    Matcher matcher = pattern.matcher(line);
-                    if (matcher.matches()) { // Если строка совпадает с указаным шаблоном
-                        //TODO: Строку необходимо проверить на соответствие группам,
-                        // поместить в нужное хранилище
-                    }
-                }
-                else break; // Строки закончились - выход из цикла обработки.
-            }
-
-        } catch (NoSuchFileException e) {
-            System.out.println("Указаного файла не существует: " + e);
-        } catch (IOException e) {
-            System.out.println("Ошибка ввода-вывода: " + e);
-        }
+    GroupStorage storage;
+    public StringSorter(GroupStorage storage) {
+        this.storage = storage;
     }
+    public void handleString(String[] str) {
+        //Получить список групп, к которым принадлежит строка.
+        LinkedList<GroupLink> groups = storage.checkGroups(str);
+
+    }
+
 }
