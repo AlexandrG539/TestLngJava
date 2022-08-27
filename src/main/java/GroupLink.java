@@ -5,7 +5,10 @@ public class GroupLink {
 
     private Group group;
 
-    public GroupLink(Group group) {this.group = group;}
+    public GroupLink(Group group) {
+        this.group = group;
+        this.group.addLink(this);
+    }
 
     public void setGroup(Group group) {this.group = group;}
 
