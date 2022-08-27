@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TestLngJava:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TestLngJava_jar</output-path>
+    <root id="archive" name="TestLngJava.jar">
+      <element id="module-output" name="TestLngJava" />
+    </root>
+  </artifact>
+</component>
