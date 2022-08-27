@@ -41,8 +41,11 @@ public class GroupStorage {
             groupStorage.add(newGroup); //И добавить в список групп
             groupLink = new GroupLink(newGroup);//Далле работаем с groupLink на новую группу
         }
+        int prevSize = groupLink.getGroup().groupSize(); //Размер группы до добавления элемента
+        // (элемент может не добавиться, так как нужно удалять дубликаты).
         groupLink.getGroup().addString(str); //Добавление строки в хранилище группы
-        if (groupLink.getGroup().groupSize() == 2) //Размер группы превысил 1 элемент
+        int size = groupLink.getGroup().groupSize();
+        if (size == 2 && size != prevSize ) //Размер группы превысил 1 элемент
             bigGroupCount++;
         // Если в хранилище критериев не хватает столбцов - его надо расширить
         for (int i = str.length - valueStorage.size(); i > 0; i--) {
@@ -95,7 +98,7 @@ public class GroupStorage {
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter("output.txt"));
             out.write("Получившиееся число групп с более чем одним элементом: " + bigGroupCount + "\n");
-            groupStorage.sort(Comparator.comparing(Group:: groupSize));
+            groupStorage.sort(Comparator.comparing(Group:: groupSize).reversed());
             int number = 1;
             for (Group group: this.groupStorage) {
                 group.printGroup(out, number);
