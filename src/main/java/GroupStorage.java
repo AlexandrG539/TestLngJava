@@ -4,10 +4,10 @@ import java.io.IOException;
 import java.util.*;
 
 public class GroupStorage {
-    //Хранилище критериев представляет собой список Map-деревьев (по одному дереву для кажого столбца входных данных).
+    //Хранилище критериев представляет собой список HashMap (по одному HashMap для кажого столбца входных данных).
     //Ключем выступает строка, значением - ссылка на объект, хранящий ссылку на группу,
     //к которой эта строка принадлежит.
-    private final LinkedList<TreeMap<String, GroupLink>> valueStorage = new LinkedList<>();
+    private final LinkedList<HashMap<String, GroupLink>> valueStorage = new LinkedList<>();
 
     //Существующие группы хранятся для дальнейшей печати
     private final LinkedList<Group> groupStorage = new LinkedList<>();
@@ -18,10 +18,10 @@ public class GroupStorage {
     //Возвращает список групп, к которым пренадлежит строка.
     public LinkedList<GroupLink> checkGroups(String[] str) {
         LinkedList<GroupLink> result = new LinkedList<>();
-        Iterator<TreeMap<String, GroupLink>> it = valueStorage.listIterator();
+        Iterator<HashMap<String, GroupLink>> it = valueStorage.listIterator();
         for (String s : str) {
             if (it.hasNext()) { //Пока есть следующие Map с ключами
-                TreeMap<String, GroupLink> map = it.next(); //Получить следующий Map
+                HashMap<String, GroupLink> map = it.next(); //Получить следующий Map
                 if (map.containsKey(s)) { // Если в столбце есть ключ (строка)
                     GroupLink link = map.get(s); // получить GroupLink
                     if (!result.contains(link)) { // если нет дубликата
@@ -49,13 +49,13 @@ public class GroupStorage {
             bigGroupCount++;
         // Если в хранилище критериев не хватает столбцов - его надо расширить
         for (int i = str.length - valueStorage.size(); i > 0; i--) {
-            TreeMap<String, GroupLink> toAdd = new TreeMap<>();
+            HashMap<String, GroupLink> toAdd = new HashMap<>();
             valueStorage.add(toAdd);
         }
         //Обновление критериев
-        Iterator<TreeMap<String, GroupLink>> it = valueStorage.iterator();
+        Iterator<HashMap<String, GroupLink>> it = valueStorage.iterator();
         for (String s: str) {
-            TreeMap<String, GroupLink> map = it.next();
+            HashMap<String, GroupLink> map = it.next();
             if (s.equals("\"\"")) {
                 continue;
             }
@@ -94,11 +94,11 @@ public class GroupStorage {
         //После чего удалить вторую группу из списка групп (на нее не должно остаться ссылок)
         groupStorage.remove(second);
     }
+    public void sortGroups() {groupStorage.sort(Comparator.comparing(Group:: groupSize).reversed());}
     public void printResult() {
         try {
             BufferedWriter out = new BufferedWriter(new FileWriter("output.txt"));
             out.write("Получившиееся число групп с более чем одним элементом: " + bigGroupCount + "\n");
-            groupStorage.sort(Comparator.comparing(Group:: groupSize).reversed());
             int number = 1;
             for (Group group: this.groupStorage) {
                 group.printGroup(out, number);

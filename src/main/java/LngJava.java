@@ -34,6 +34,7 @@ public class LngJava {
                 else break; // Строки закончились - выход из цикла обработки.
             }
             sc.close();
+            storage.sortGroups();
             storage.printResult();
 
         } catch (NoSuchFileException e) {

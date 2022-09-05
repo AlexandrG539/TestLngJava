@@ -17,6 +17,9 @@ public class SplittedString implements Comparable<SplittedString> {
                 continue;
             return (compRes > 0) ? 1 : -1;
         }
+        if (other.str.length > str.length) { //Дошли до конца первой строки, а во второй еще есть значения
+            return -1; //Вторая строка больше
+        }
         return 0;
     }
     public String[] getStr() {return str;}
