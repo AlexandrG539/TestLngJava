@@ -9,8 +9,8 @@
         <module name="TestLngJava" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="18">
-      <module name="TestLngJava" target="18" />
+    <bytecodeTargetLevel target="11">
+      <module name="TestLngJava" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
